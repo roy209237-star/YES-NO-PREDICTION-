@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YES/NO Pro — Virtual Points</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<header><div class="brand">YES<span>/</span>NO <b>PRO</b></div><nav><button onclick="show('markets')">Markets</button><button onclick="show('history')">My Predictions</button><button onclick="show('leaders')">Leaderboard</button><a id="adminLink" href="/admin" hidden>Admin</a><button id="logout" hidden onclick="logout()">Logout</button></nav></header>
+<main>
+<section id="auth" class="hero"><div><p class="eyebrow">VIRTUAL POINTS PLATFORM</p><h1>Predict. Track.<br><span>Compete.</span></h1><p class="muted">A Probo-inspired YES/NO experience for virtual points only.</p></div>
+<div class="authbox"><div class="tabs"><button class="active" onclick="authMode('login')">Login</button><button onclick="authMode('register')">Register</button></div>
+<div class="tabs"><button id="passTab" class="active" onclick="loginMode('password')">Password</button><button id="otpTab" onclick="loginMode('otp')">Mobile OTP</button></div>
+<form id="authForm"><input id="name" placeholder="Name" hidden><input id="phone" placeholder="Mobile number" inputmode="tel" hidden><input id="email" type="email" placeholder="Email" required><input id="password" type="password" placeholder="Password" required><button class="primary">Continue</button></form>
+<div id="otpBox" hidden><input id="otpPhone" placeholder="Mobile number" inputmode="tel"><button class="primary" onclick="requestOtp()">Send OTP</button><input id="otp" placeholder="6-digit OTP" inputmode="numeric" maxlength="6"><button class="primary" onclick="verifyOtp()">Verify & Login</button></div>
+<p id="authMsg"></p><p class="muted" style="font-size:12px">Mobile OTP is demo-ready; connect an SMS provider for live OTP delivery.</p></div></section>
+
+<section id="app" hidden>
+<div class="wallet"><div><small>YOUR VIRTUAL BALANCE</small><strong id="balance">0</strong> <span>PTS</span></div><div class="user" id="who"></div></div>
+<div id="markets" class="view"></div><div id="history" class="view" hidden></div><div id="leaders" class="view" hidden></div>
+</section></main>
+<div id="modal" class="modal" hidden><div class="modalcard"><button class="x" onclick="closeModal()">×</button><h2 id="mTitle"></h2><p id="mSide"></p><input id="stake" type="number" min="1" placeholder="Virtual points to use"><button class="primary" onclick="submitPrediction()">Confirm Prediction</button><p class="muted">No real money. Virtual points only.</p><p id="mMsg"></p></div></div>
+<script src="/socket.io/socket.io.js"></script><script src="/app.js"></script></body></html>
