@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YES/NO Pro - Predict & Win</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style-new.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>YES/<span>NO</span> <b>PRO</b></h1>
+            </div>
+            <div class="header-right">
+                <div class="balance-display">
+                    <span class="balance-label">Balance</span>
+                    <span class="balance-amount" id="balance">0 PTS</span>
+                </div>
+                <div class="user-profile" id="userProfile">
+                    <img src="https://via.placeholder.com/40" alt="User" class="user-avatar">
+                    <span class="user-name" id="userName">User</span>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Markets Section -->
+        <section id="marketsSection" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-fire"></i> Live Markets</h2>
+                <div class="filter-tabs">
+                    <button class="tab-btn active" onclick="filterMarkets('all')">All</button>
+                    <button class="tab-btn" onclick="filterMarkets('open')">Open</button>
+                    <button class="tab-btn" onclick="filterMarkets('closed')">Closed</button>
+                </div>
+            </div>
+            <div class="markets-grid" id="marketsGrid">
+                <!-- Market cards will be populated here -->
+            </div>
+        </section>
+
+        <!-- Leaderboard Section -->
+        <section id="leaderboardSection" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-trophy"></i> Top Predictors</h2>
+            </div>
+            <div class="leaderboard-container">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Player</th>
+                            <th>Points</th>
+                            <th>Accuracy</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody">
+                        <!-- Leaderboard rows will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- History Section -->
+        <section id="historySection" class="section" hidden>
+            <div class="section-header">
+                <h2><i class="fas fa-history"></i> My Predictions</h2>
+            </div>
+            <div class="history-container" id="historyContainer">
+                <!-- History items will be populated here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for Prediction -->
+    <div id="predictionModal" class="modal" hidden>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-header">
+                <h2 id="modalTitle">Make Your Prediction</h2>
+                <p id="modalDescription"></p>
+            </div>
+            <div class="modal-body">
+                <div class="stake-input">
+                    <label>Stake (Points)</label>
+                    <input type="number" id="stakeInput" min="1" max="1000" placeholder="Enter amount">
+                </div>
+                <div class="prediction-buttons">
+                    <button class="predict-yes" onclick="makePrediction('YES')">
+                        <i class="fas fa-check-circle"></i> YES
+                    </button>
+                    <button class="predict-no" onclick="makePrediction('NO')">
+                        <i class="fas fa-times-circle"></i> NO
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button class="nav-btn active" onclick="showSection('marketsSection', this)">
+            <i class="fas fa-chart-line"></i>
+            <span>Markets</span>
+        </button>
+        <button class="nav-btn" onclick="showSection('leaderboardSection', this)">
+            <i class="fas fa-crown"></i>
+            <span>Leaders</span>
+        </button>
+        <button class="nav-btn" onclick="showSection('historySection', this)">
+            <i class="fas fa-history"></i>
+            <span>History</span>
+        </button>
+        <button class="nav-btn" onclick="toggleSettings()">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </button>
+    </nav>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal" hidden>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeSettings()">×</button>
+            <h2>Settings</h2>
+            <div class="settings-option">
+                <label>
+                    <input type="checkbox" id="darkMode" onchange="toggleDarkMode()">
+                    Dark Mode
+                </label>
+            </div>
+            <button class="logout-btn full-width" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/app-new.js"></script>
+</body>
+</html>
